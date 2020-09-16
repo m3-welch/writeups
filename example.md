@@ -1,3 +1,14 @@
+# Table of Contents
+1. [Author](#Author)
+2. [CTF](#CTF)
+3. [Category](#Category)
+4. [Challenge Name](#Challenge_Name)
+5. [Challenge Description](#Challenge Description)
+6. [Challenge Points](#Challenge Points)
+7. [Solution](#Solution)
+  7.1. [Code Analysis](#Code Analysis)
+  7.2. [Vulnerabilities](#Vulnerabilities)
+
 # Author
 SamIsland
 
@@ -21,7 +32,7 @@ Attachments: [calculator.py](https://pastebin.com/NGickNbp)
 # Challenge Points
 100 pts
 
-# _*Solution*_
+# Solution
 ## Code Analysis:
 After taking a first look at the source code we can see the script is written in python2.7 and calls a couple of input() methods casted as int() which expect us to pass two operands. After that, a raw_input() method is called, allowing us to pass in the operator.
 At this point the script will run the calculation and output the result.
