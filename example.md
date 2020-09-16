@@ -3,9 +3,9 @@
 2. [CTF](#CTF)
 3. [Category](#Category)
 4. [Challenge Name](#Challenge-Name)
-5. [Challenge Description](#Challenge-Description)
+5. [Challenge Points](#Challenge-Points)
 6. [Attachments](#Attachments)
-7. [Challenge Points](#Challenge-Points)
+7. [Challenge Description](#Challenge-Description)
 8. [Solution](#Solution)
 
 # Author
@@ -19,6 +19,9 @@ Misc
 
 # Challenge Name
 My First Calculator
+
+# Challenge Points
+100 pts
 
 # Challenge Description
 I’m really new to python. Please don’t break my calculator!
@@ -61,9 +64,6 @@ try:
 except ValueError:
     pass
 ```
-
-# Challenge Points
-100 pts
 
 # Solution
 ## Code Analysis:
