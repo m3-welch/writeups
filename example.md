@@ -6,9 +6,9 @@
 5. [Challenge Description](#Challenge-Description)
 6. [Challenge Points](#Challenge-Points)
 7. [Solution](#Solution)
-..1. [Code Analysis](#Code-Analysis)
-..2. [Vulnerabilities](#Vulnerabilities)
-..3. [Getting Our Hands Dirty](#Getting-Our-Hands-Dirty)
+  1. [Code Analysis](#Code-Analysis)
+  2. [Vulnerabilities](#Vulnerabilities)
+  3. [Getting Our Hands Dirty](#Getting-Our-Hands-Dirty)
 
 # Author
 SamIsland
