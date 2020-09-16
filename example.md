@@ -2,11 +2,11 @@
 1. [Author](#Author)
 2. [CTF](#CTF)
 3. [Category](#Category)
-4. [Challenge Name](#Challenge_Name)
-5. [Challenge Description](#Challenge Description)
-6. [Challenge Points](#Challenge Points)
+4. [Challenge Name](#Challenge-Name)
+5. [Challenge Description](#Challenge-Description)
+6. [Challenge Points](#Challenge-Points)
 7. [Solution](#Solution)
-  7.1. [Code Analysis](#Code Analysis)
+  7.1. [Code Analysis](#Code-Analysis)
   7.2. [Vulnerabilities](#Vulnerabilities)
 
 # Author
