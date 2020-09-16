@@ -6,8 +6,8 @@
 5. [Challenge Description](#Challenge-Description)
 6. [Challenge Points](#Challenge-Points)
 7. [Solution](#Solution)
-  7.1. [Code Analysis](#Code-Analysis)
-  7.2. [Vulnerabilities](#Vulnerabilities)
+  1. [Code Analysis](#Code-Analysis)
+  2. [Vulnerabilities](#Vulnerabilities)
 
 # Author
 SamIsland
