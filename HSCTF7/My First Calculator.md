@@ -105,7 +105,7 @@ We reconnect to the server and repeat the same procedure with a slightly differe
 
 It does pretty much the same thing as the one above, with the difference that this time we don’t need to get the whole string, so there’s no need to `strip()` it, and instead of calling `len()` we call `ord()` which returns the decimal value of the character at position n.
 
-We still pass 0 and either ‘+’ or ’-’ to the next two inputs and we would get the decimal value of the Nth character of the flag.
+We still pass 0 and either `‘+’` or `’-’` to the next two inputs and we would get the decimal value of the Nth character of the flag.
 
 All we have to do now is repeat this procedure for every character of the string.
 It would take quite a lot of time to do that by hand, so i decided to automatize it with this simple script.
