@@ -7,9 +7,6 @@
 6. [Attachments](#Attachments)
 7. [Challenge Points](#Challenge-Points)
 8. [Solution](#Solution)
-  1. [Code Analysis](#Code-Analysis)
-  2. [Vulnerabilities](#Vulnerabilities)
-  3. [Getting Our Hands Dirty](#Getting-Our-Hands-Dirty)
 
 # Author
 SamIsland
