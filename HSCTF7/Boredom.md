@@ -3,9 +3,10 @@
 2. [CTF](#CTF)
 3. [Category](#Category)
 4. [Challenge Name](#Challenge-Name)
-5. [Challenge Description](#Challenge-Description)
-6. [Challenge Points](#Challenge-Points)
-7. [Solution](#Solution)
+5. [Challenge Points](#Challenge-Points)
+6. [Challenge Description](#Challenge-Description)
+7. [Attachments](#Attachments)
+8. [Solution](#Solution)
 
 # Author
 Kaffarel
@@ -19,6 +20,9 @@ Binary Exploitation
 # Challenge-Name
 Boredom
 
+# Challenge-Points
+100 pts
+
 # Challenge-Description
 Keith is bored and stuck at home. Give him some things to do.
 Connect at nc pwn.hsctf.com 5002.
@@ -29,8 +33,8 @@ Note, if you're having trouble getting it to work remotely:
 Author: PMP
 Files: C source file, Executable of the same program
 
-# Challenge-Points
-100 pts
+# Attachments
+_None_
 
 # Solution
 First I looked at the source code in the attached .c file.
