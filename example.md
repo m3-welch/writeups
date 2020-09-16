@@ -1,5 +1,5 @@
 # Author
-SamIsland (ctftime username)
+SamIsland
 
 # CTF
 HSCTF 7
