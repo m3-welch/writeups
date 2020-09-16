@@ -8,6 +8,8 @@
 7. [Solution](#Solution)
   1. [Code Analysis](#Code-Analysis)
   2. [Vulnerabilities](#Vulnerabilities)
+  3. [Getting Our Hands Dirty](#Getting-Our-Hands-Dirty)
+8. [Flag](#Flag)
 
 # Author
 SamIsland
