@@ -33,7 +33,7 @@ There is a flag.txt on the server.
 
 ## calculator.py
 
-``` python2
+``` python
 #!/usr/bin/env python2.7
  
 try:
@@ -110,7 +110,7 @@ We still pass 0 and either ‘+’ or ’-’ to the next two inputs and we woul
 All we have to do now is repeat this procedure for every character of the string.
 It would take quite a lot of time to do that by hand, so i decided to automatize it with this simple script.
 
-``` python2
+``` python
 #!/usr/bin/python2
  
 import socket
