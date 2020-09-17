@@ -42,4 +42,4 @@ Performing a simple `GET` request to this URL (can be done by accessing it throu
 I then used a tool called [Postman](https://www.postman.com/) to create a request to the URL (https://debt-simulator-login-backend.web.hsctf.com/yolo_0000000000001) with the HTTP Header `function: getgetgetgetgetgetgetgetgetFlag`. 
 
 This returned the flag to me:
-`flag{y0u_f0uND_m3333333_123123123555554322221`
+`flag{y0u_f0uND_m3333333_123123123555554322221}`
