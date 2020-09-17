@@ -9,7 +9,7 @@
 8. [Solution](#Solution)
 
 # Author
-0x534b
+0x534b aka m0n0
 
 # CTF
 CSAW CTF Quals 2020
