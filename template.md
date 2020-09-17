@@ -9,17 +9,25 @@
 8. [Solution](#Solution)
 
 # Author
+Author of the writeup
 
 # CTF
+Name of the CTF
 
 # Category
+Category of the challenge
 
 # Challenge Name
+Name of the challenge
 
 # Challenge Points
+Points of the challenge
 
 # Challenge Description
+Description of the challenge
 
 # Attachments
+List of attached files
 
 # Solution
+Solution of the challenge
