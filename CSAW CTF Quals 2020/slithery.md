@@ -79,7 +79,8 @@ So it seems the program loads a blacklist from a local python module and checks 
 import base64.b64decode as HrjYMvtxwA
 import numpy as RMbPOQHCzt
 ```
-Not very much to work with huh. Since the blacklist prevented me from importing any modules, I started looking through this [list](https://docs.python.org/3/library/functions.html) of functions built in to python3 which don't need to be imported. I eventually came across `globals()`, a function that returns a `dict` of the script's global objects. So, I checked if it was blacklisted:
+## The Exploit
+Since the blacklist prevented me from importing any modules, I started looking through this [list](https://docs.python.org/3/library/functions.html) of functions built in to python3 which don't need to be imported. I eventually came across `globals()`, a function that returns a `dict` of the script's global objects. So, I checked if it was blacklisted:
 ```python
 EduPy 3.8.2
 >>> print(globals())
